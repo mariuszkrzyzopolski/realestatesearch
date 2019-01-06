@@ -6,7 +6,8 @@ page_response = requests.get(page_link, timeout=5)
 soup = BeautifulSoup(page_response.content, 'html.parser')
 links = soup.find_all('a', href=True)
 
+for a in links:
 
-for a in soup.find_all('a', href=True):
-    print("Found the URL:", a['href'])
-    print(":", a.contents[0])
+    if a.find_all("span", class_="offer-item-title", limit=1):
+            print("Found the URL:", a['href'])
+
