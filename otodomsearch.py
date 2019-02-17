@@ -1,5 +1,4 @@
 from connectclass import Connect
-from bs4 import BeautifulSoup
 import xlsxwriter
 
 
@@ -9,16 +8,8 @@ workbook = xlsxwriter.Workbook('home.xlsx')
 worksheet = workbook.add_worksheet()
 row = 0
 col = 0
-i = 1
 otodom = Connect(searchlink, "a", "listing_no_promo")
-page_response = otodom.LinkConnection()
-soup = BeautifulSoup(page_response.content, 'html.parser')
-links = soup.find_all(otodom.find, {"data-featured-name" : otodom.elem_class})
 
-for otodom.find in links:
-    if i%2 == 0:
-        worksheet.write(row, col, otodom.find['href'])
-        row += 1
-    i += 1
+otodom.SearchElements("data-featured-name", worksheet, row, col)
 
 workbook.close()
