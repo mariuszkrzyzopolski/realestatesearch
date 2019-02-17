@@ -1,5 +1,5 @@
 from connectclass import Connect
-import xlsxwriter
+import pandas as pd
 
 searchlink = [
     "https://www.otodom.pl/sprzedaz/mieszkanie/gdansk/?search%5Bfilter_float_price%3Ato%5D=250000&search%5Bfilter_enum_market%5D%5B0%5D=secondary&search%5Bfilter_float_build_year%3Ato%5D=2016&search%5Bdescription%5D=1&search%5Bdist%5D=10&search%5Bsubregion_id%5D=439&search%5Bcity_id%5D=40&search%5Border%5D=created_at_first%3Adesc",
@@ -9,23 +9,17 @@ searchlink = [
     "https://metrohouse.pl/na-sprzedaz/mieszkanie/gdansk/-/250000-do_PLN",
 ]
 
-workbook = xlsxwriter.Workbook('home.xlsx')
-worksheet = workbook.add_worksheet()
+savelist = []
 row = 0
-col = 0
 otodom = Connect(searchlink[0], "a", "listing_no_promo")
-otodom.SearchElements("data-featured-name", worksheet, row, col, 2)
-col += 1
+savelist.append(otodom.SearchElements("data-featured-name", 2))
 morizon = Connect(searchlink[1], "a", "property_link")
-morizon.SearchElements("class", worksheet, row, col)
-col += 1
+savelist.append(morizon.SearchElements("class"))
 adresowo = Connect(searchlink[2], "a", "title")
-adresowo.SearchElements("class", worksheet, row, col, 1, "https://adresowo.pl")
-col += 1
+savelist.append(adresowo.SearchElements("class", 1, "https://adresowo.pl"))
 freedom = Connect(searchlink[3], "a", "button brand expanded")
-freedom.SearchElements("class", worksheet, row, col)
-col +=1
+savelist.append(freedom.SearchElements("class"))
 metrohouse = Connect(searchlink[4], "a", "btn btnDarkBlue go_to_prop_btn")
-metrohouse.SearchElements("class", worksheet, row, col, 1, "https://metrohouse.pl")
+savelist.append(metrohouse.SearchElements("class", 1, "https://metrohouse.pl"))
 
-workbook.close()
+pd.DataFrame(savelist).to_csv('example.csv', header=False, index=False)
