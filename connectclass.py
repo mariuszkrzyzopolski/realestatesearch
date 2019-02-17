@@ -15,12 +15,14 @@ class Connect:
         soup = self.LinkConnection
         return BeautifulSoup(soup.content, 'html.parser')
 
-    def SearchElements(self, searched, worksheet, row, col):
+    def SearchElements(self, searched, worksheet, row, col, j=1, add=""):
         soup = self.CreateStructureSoup()
         links = soup.find_all(self.find, {searched: self.elem_class})
         i = 1
         for self.find in links:
-            if i % 2 == 0:
-                worksheet.write(row, col, self.find['href'])
+            if i % j == 0:
+                worksheet.write(row, col, add+self.find['href'])
                 row += 1
             i += 1
+            if row == 25:
+                break
