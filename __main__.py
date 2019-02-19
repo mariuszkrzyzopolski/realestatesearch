@@ -22,6 +22,7 @@ freedom = Connect(searchlink[3], "a", "button brand expanded")
 savelist.append(freedom.SearchElements("class"))
 metrohouse = Connect(searchlink[4], "a", "btn btnDarkBlue go_to_prop_btn")
 savelist.append(metrohouse.SearchElements("class", 1, "https://metrohouse.pl"))
-
 pd.DataFrame(savelist).transpose().to_csv('results.csv', header=False, index=False)
+
+
 scrapfromresult()
