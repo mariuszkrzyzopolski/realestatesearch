@@ -16,12 +16,13 @@ class Connect:
         soup = self.LinkConnection
         return BeautifulSoup(soup.content, 'html.parser')
 
-    def SearchElements(self, searched, j=1, add=""):
+    def SearchElements(self, searched, name, j=1, add=""):
         soup = self.CreateStructureSoup()
         links = soup.find_all(self.find, {searched: self.elem_class})
         i = 1
         row = 0
         listlinks = []
+        listlinks.append(name)
         for self.find in links:
             if i % j == 0:
                 listlinks.append(add+self.find['href'])

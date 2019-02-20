@@ -13,15 +13,15 @@ searchlink = [
 savelist = []
 row = 0
 otodom = Connect(searchlink[0], "a", "listing_no_promo")
-savelist.append(otodom.SearchElements("data-featured-name", 2))
+savelist.append(otodom.SearchElements("data-featured-name", 'otodom', 2))
 morizon = Connect(searchlink[1], "a", "property_link")
-savelist.append(morizon.SearchElements("class"))
+savelist.append(morizon.SearchElements("class", 'morizon'))
 adresowo = Connect(searchlink[2], "a", "title")
-savelist.append(adresowo.SearchElements("class", 1, "https://adresowo.pl"))
+savelist.append(adresowo.SearchElements("class", 'adresowo', 1, "https://adresowo.pl"))
 freedom = Connect(searchlink[3], "a", "button brand expanded")
-savelist.append(freedom.SearchElements("class"))
+savelist.append(freedom.SearchElements("class", 'freedom'))
 metrohouse = Connect(searchlink[4], "a", "btn btnDarkBlue go_to_prop_btn")
-savelist.append(metrohouse.SearchElements("class", 1, "https://metrohouse.pl"))
+savelist.append(metrohouse.SearchElements("class", 'metrohouse', 1, "https://metrohouse.pl"))
 pd.DataFrame(savelist).transpose().to_csv('results.csv', header=False, index=False)
 
 
