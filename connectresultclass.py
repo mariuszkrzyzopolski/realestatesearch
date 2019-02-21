@@ -19,6 +19,8 @@ class ConnectResult(Connect):
                 a = a.get_text()
                 if a == no_class:
                     result = b.next_sibling
-                    print(result)
+                    #problem with detecting NaN value
+                    if result == 'Rynek:':
+                        result = "NaN"
                     return result
         return result.get_text()
