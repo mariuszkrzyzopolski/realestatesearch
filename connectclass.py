@@ -10,7 +10,7 @@ class Connect:
 
     @property
     def LinkConnection(self):
-        return requests.get(self.page_link, timeout=5)
+        return requests.get(self.page_link, timeout=10)
 
     def CreateStructureSoup(self):
         soup = self.LinkConnection

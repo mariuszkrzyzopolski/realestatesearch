@@ -11,19 +11,21 @@ def scrapfromresult():
             df.fillna(0, inplace=True)
             if not link == 0:
                 if columnsname == 'otodom':
-                    price = ConnectResult(link, "li", "class", "param_price").search_inside('strong')
-                    surface = ConnectResult(link, "li", "class", "param_m").search_inside('strong')
-                    floor = ConnectResult(link, "li", "class", "param_floor_no").search_inside('strong')
-                    build_year = ConnectResult(link, "ul", "class", "sub-list").search_inside('strong', "Rok budowy:")
-                    heating = ConnectResult(link, "ul", "class", "sub-list").search_inside('strong', "Ogrzewanie:")
-                    rent = ConnectResult(link, "ul", "class", "sub-list").search_inside('strong', "Czynsz:")
+                    continue
+                    #price = ConnectResult(link, "li", "class", "param_price").search_inside('strong')
+                    #surface = ConnectResult(link, "li", "class", "param_m").search_inside('strong')
+                    #floor = ConnectResult(link, "li", "class", "param_floor_no").search_inside('strong')
+                    #build_year = ConnectResult(link, "ul", "class", "sub-list").search_inside('strong', "Rok budowy:")
+                    #heating = ConnectResult(link, "ul", "class", "sub-list").search_inside('strong', "Ogrzewanie:")
+                    #rent = ConnectResult(link, "ul", "class", "sub-list").search_inside('strong', "Czynsz:")
                 elif columnsname == 'morizon':
                     # need solve problem with search inside
                     price = ConnectResult(link, "li", "class", "paramIconPrice").search_inside('em') # it work
                     surface = ConnectResult(link, "li", "class", "paramIconLivingArea").search_inside('em') # it work
-                    floor = ConnectResult(link, "section", "class", "params clearfix").search_inside('th', "Piętro: ") # it and down doesnt
-                    build_year = ConnectResult(link, "section", "class", "params clearfix").search_inside('th', "Rok budowy: ")
-                    heating = ConnectResult(link, "section", "class", "params clearfix").search_inside('h3', "Ogrzewanie")
+                    floor = ConnectResult(link, "section", "class", "params clearfix").search_inside('th', "Piętro: ",columnsname)
+                    build_year = ConnectResult(link, "section", "class", "params clearfix").search_inside('th', "Rok budowy: ",columnsname)
+                    heating = ConnectResult(link, "section", "class", "params clearfix").search_inside('h3', "Ogrzewanie",columnsname)
+                    rent = None
                 result_list = savescrap(result_list, link, price, surface, floor, build_year, heating, rent)
 
         result_list = pd.DataFrame(data=result_list)
