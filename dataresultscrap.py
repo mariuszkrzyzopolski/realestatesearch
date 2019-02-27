@@ -6,12 +6,13 @@ import pandas as pd
 def scrapfromresult():
     result_list = {'source': [], 'price': [], 'surface': [], 'floor': [], 'build_year': [], 'heating': [], 'rent': []}
     df = pd.read_csv('results.csv')
+    df.fillna(0, inplace=True)
     for columnsname in df:
         for link in df[columnsname]:
-            df.fillna(0, inplace=True)
             if not link == 0:
                 if columnsname == 'otodom':
                     continue
+                    #problem with scrap from otodom.suspend
                     #price = ConnectResult(link, "li", "class", "param_price").search_inside('strong')
                     #surface = ConnectResult(link, "li", "class", "param_m").search_inside('strong')
                     #floor = ConnectResult(link, "li", "class", "param_floor_no").search_inside('strong')
@@ -33,14 +34,17 @@ def scrapfromresult():
 
 
 def savescrap(result_list, link, price, surface, floor='', build_year='', heating='', rent=''):
-    result_list['source'].append(link)
-    result_list['price'].append(price)
-    result_list['surface'].append(surface)
-    result_list['floor'].append(floor)
-    result_list['build_year'].append(build_year)
-    result_list['heating'].append(heating)
-    result_list['rent'].append(rent)
+    result_list.append([link, price, surface, floor, build_year, heating, rent])
+    print(result_list.head)
+    #result_list['source'].append(link)
+    #result_list['price'].append(price)
+    #result_list['surface'].append(surface)
+    #result_list['floor'].append(floor)
+    #result_list['build_year'].append(build_year)
+    #result_list['heating'].append(heating)
+    #result_list['rent'].append(rent)
     return result_list
+
 
 #only for testing
 scrapfromresult()
