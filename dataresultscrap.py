@@ -38,12 +38,18 @@ def scrapfromresult():
                     #heating = ConnectResult(link, "div", "id", "offer-description").search_inside('br', " Ogrzewanie")
                     rent = None
                 elif columnsname == 'freedom':
+                    continue
                     price = ConnectResult(link, "div", "class", "columns large-5").search_inside('span')
                     surface = ConnectResult(link, "div", "class", "columns large-12 data").search_inside("ul" ,'pow. całkowita',"freedom")
                     floor = ConnectResult(link, "div", "class", "small-12 data").search_inside("div","piętro","freedom")
                     build_year = None
                     heating = None
                     rent = None
+                elif columnsname == 'metrohouse':
+                    price = ConnectResult(link, "div", "itemprop", "offers").search_inside("span")
+                    surface = ConnectResult(link, "div", "class", "table-responsive").search_inside("span")
+                    floor = ConnectResult(link, "div", "class", "table-responsive").search_inside("span",0,columnsname,3)#problem
+                    build_year = ConnectResult(link, "div", "class", "table-responsive").search_inside("span",0,columnsname,4)
                 result_list = savescrap(result_list, link, price, surface, floor, build_year, heating, rent)
     result_list.to_csv('info.csv', index=False)
 

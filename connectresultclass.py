@@ -14,7 +14,7 @@ class ConnectResult(Connect):
         self.elem_class = elem_class  # attribute value
 
     # searching for tag inside parent tag and for text without tag
-    def search_inside(self, elem_inside, no_class=0, column=0):
+    def search_inside(self, elem_inside, no_class=0, column=0, next=0):
         soup = self.CreateStructureSoup()
         value = soup.find(self.find, {self.attribute: self.elem_class})
         result = value.find(elem_inside)
@@ -22,6 +22,7 @@ class ConnectResult(Connect):
             create_patern = ""+no_class+"$"
             patern = re.compile(create_patern)
             a = value.find(text=patern)
+            print(a)
             if a is None:
                 return None
             if column == 'adresowo':
@@ -36,5 +37,9 @@ class ConnectResult(Connect):
                 return result.get_text()
             return result.get_text()
         else:
+            if column == 'metrohouse':
+                result = value.find_all(elem_inside)
+                result = result[next]
             result = str(result.get_text())
+            print(result)
             return result
