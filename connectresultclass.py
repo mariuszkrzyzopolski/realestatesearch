@@ -35,11 +35,10 @@ class ConnectResult(Connect):
                 result = str(result).replace("\n", '')
             if column == 'freedom':
                 return result.get_text()
-            return result.get_text()
+            return result
         else:
             if column == 'metrohouse':
                 result = value.find_all(elem_inside)
                 result = result[next]
             result = str(result.get_text())
-            print(result)
             return result
