@@ -13,6 +13,7 @@ class ConnectResult(Connect):
         self.attribute = attribute  # attribute
         self.elem_class = elem_class  # attribute value
 
+
     # searching for tag inside parent tag and for text without tag
     def search_inside(self, elem_inside, no_class=0, column=0, next=0):
         soup = self.CreateStructureSoup()

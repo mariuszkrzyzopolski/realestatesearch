@@ -49,6 +49,5 @@ def savescrap(result_list, link, price, surface, floor=None, build_year=None, he
     tmp_dict = {'source': [link], 'price': [price], 'surface': [surface], 'floor': [floor], 'build_year': [build_year], 'heating': [heating]}
     tmp_dict = pd.DataFrame(tmp_dict)
     result_list = pd.concat([result_list, tmp_dict])
-
     return result_list
 
