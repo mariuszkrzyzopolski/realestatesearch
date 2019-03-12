@@ -1,5 +1,7 @@
 from connectclass import Connect
 import pandas as pd
+import dataresultscrap
+
 
 
 searchlink = [
@@ -24,4 +26,4 @@ metrohouse = Connect(searchlink[4], "a", "btn btnDarkBlue go_to_prop_btn")
 savelist.append(metrohouse.SearchElements("class", 'metrohouse', 1, "https://metrohouse.pl"))
 pd.DataFrame(savelist).transpose().to_csv('results.csv', header=False, index=False)
 
-
+dataresultscrap.scrapfromresult()

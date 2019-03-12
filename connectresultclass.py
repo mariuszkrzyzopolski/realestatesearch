@@ -17,12 +17,15 @@ class ConnectResult(Connect):
     def search_inside(self, elem_inside, no_class=0, column=0, next=0):
         soup = self.CreateStructureSoup()
         value = soup.find(self.find, {self.attribute: self.elem_class})
+        if elem_inside == 0:
+            value=value.get_text()
+            print(value)
+            return value
         result = value.find(elem_inside)
         if not no_class == 0:
             create_patern = ""+no_class+"$"
             patern = re.compile(create_patern)
             a = value.find(text=patern)
-            print(a)
             if a is None:
                 return None
             if column == 'adresowo':
@@ -33,12 +36,15 @@ class ConnectResult(Connect):
                 no_class = "\n"+no_class+"\n"
                 result = str(result).replace(no_class, '')
                 result = str(result).replace("\n", '')
-            if column == 'freedom':
+            if column == 'freedom' or column == 'otodom':
+                print(result.get_text())
                 return result.get_text()
+            print(result)
             return result
         else:
             if column == 'metrohouse':
                 result = value.find_all(elem_inside)
                 result = result[next]
             result = str(result.get_text())
+            print(result)
             return result
