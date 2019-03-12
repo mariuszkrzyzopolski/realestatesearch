@@ -11,9 +11,7 @@ def scrapfromresult():
     for columnsname in df:
         for link in df[columnsname]:
             if not link == 0:
-                print(link)
                 if columnsname == 'otodom':
-                    #problem with scrap from otodom.suspend
                     price = ConnectResult(link, "div", "class", "css-7ryazv-AdHeader-className").search_inside(0)
                     surface = ConnectResult(link, "div", "class", "css-1v9yl6n-AdOverview-className").search_inside('strong')
                     floor = ConnectResult(link, "div", "class", "css-1v9yl6n-AdOverview-className").search_inside('li', "Piętro: ",columnsname)
@@ -26,16 +24,15 @@ def scrapfromresult():
                     build_year = ConnectResult(link, "section", "class", "params clearfix").search_inside('th', "Rok budowy: ",columnsname)
                     heating = ConnectResult(link, "section", "class", "params clearfix").search_inside('h3', "Ogrzewanie",columnsname)
                 elif columnsname == 'adresowo':
-                    price = ConnectResult(link, "span", "class", "price").search_inside('', '', 'default')#dosent search
-                    surface = ConnectResult(link, "div", "id", "offer-summary").search_inside('', " o powierzchni ")#return tag, should text
+                    price = ConnectResult(link, "div", "id", "offer-price").search_inside('span')
+                    surface = ConnectResult(link, "div", "id", "offer-summary").search_inside('', " o powierzchni ","otodom")#return tag, should text
                     floor = ConnectResult(link, "div", "id", "offer-summary").search_inside('b', "piętro", columnsname)
                     build_year = None
                     heating = None
-                    #heating = ConnectResult(link, "div", "id", "offer-description").search_inside('br', " Ogrzewanie")
                 elif columnsname == 'freedom':
                     price = ConnectResult(link, "div", "class", "columns large-5").search_inside('span')
-                    surface = ConnectResult(link, "div", "class", "columns large-12 data").search_inside("ul" ,'pow. całkowita',"freedom")
-                    floor = ConnectResult(link, "div", "class", "small-12 data").search_inside("div","piętro","freedom")
+                    surface = ConnectResult(link, "div", "class", "columns large-12 data").search_inside("ul" ,'pow. całkowita', columnsname)
+                    floor = ConnectResult(link, "div", "class", "small-12 data").search_inside("div", "piętro", columnsname)
                     build_year = None
                     heating = None
                 elif columnsname == 'metrohouse':
